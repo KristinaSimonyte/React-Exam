@@ -1,27 +1,86 @@
-import { useContext } from 'react';
-import Container from './../components/UI/Container';
-import AuthContext from './../store/authContext';
+import { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import Button from '../components/Button/Button';
+import { sendFetch } from '../helpers/helpers';
+import Container from '../components/Container';
+import css from './LoginPage.module.css';
+import AuthContext from '../store/authContext';
 
-function LoginPage() {
+
+const initErrors = {
+    userEmail: '',
+    password: '',
+  };
+  
+  function LoginPage() {
+    const history = useHistory();
+    const [userEmail, setUserEmail] = useState('ttt@ttt.lt');
+    const [password, setPassword] = useState('ttt');
+    const [isError, setIsError] = useState(false);
+    const [errorObj, setErrorObj] = useState(initErrors);
     const authCtx = useContext(AuthContext);
-    function formHandler(e) {
+
+    useEffect(() => {
+      const isErrorsEmpty = Object.values(errorObj).every((el) => el === '');
+      if (!isErrorsEmpty) {
+        setIsError(true);
+      }
+    }, [userEmail, password, errorObj]);
+  
+    async function submitHandler(e) {
+      setIsError(false);
+      setErrorObj(initErrors);
       e.preventDefault();
-      console.log('Logging in');
-      authCtx.login();
+  
+      if (userEmail.trim() === '') {
+        setErrorObj((prevState) => ({ ...prevState, name: 'Please insert email' }));
+      }
+      if (password.trim() === '') {
+        setErrorObj((prevState) => ({ ...prevState, dob: 'Please insert password' }));
+      }
+  
+      const newLoginObj = {
+        email: userEmail,
+        password: password,
+      };
+      const sendResult = await sendFetch('auth/login', newLoginObj);
+      if (sendResult.msg === 'Successfully logged in') {
+        alert (sendResult.msg);
+        console.log(sendResult);
+        authCtx.login(sendResult.token);
+        history.push('/home');
+      }
+      if (sendResult.err) {
+        setIsError(true);
+      }
     }
+  
     return (
       <Container>
-        <h1>Login</h1>
-        <form onSubmit={formHandler}>
-          <input type='text' placeholder='email' />
-          <br />
-          <input type='text' placeholder='password' />
-          <br />
-          <button type='submit'>Login</button>
+        <h2>Login</h2>
+        <form onSubmit={submitHandler} className={css.form}>
+          {isError && <h3 className={css.err}>Please check username and password</h3>}
+          <input
+            onChange={(e) => setUserEmail(e.target.value)}
+            value={userEmail}
+            className={`${css.input} ${errorObj.userEmail ? css.errBg : ''}`}
+            type='email'
+            placeholder='Please enter your email'
+          />
+          {errorObj.userEmail && <p>{errorObj.userEmail}</p>}
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            className={`${css.input} ${errorObj.password ? css.errBg : ''}`}
+            type='password'
+            placeholder='Please enter your password'
+          />
+          {errorObj.password && <p>{errorObj.password}</p>}
+          {errorObj.userEmail && <p>{errorObj.userEmail}</p>}
+          <Button>Login</Button>
         </form>
       </Container>
     );
   }
   
   export default LoginPage;
-  

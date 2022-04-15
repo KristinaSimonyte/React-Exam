@@ -1,10 +1,9 @@
 import { useContext } from 'react';
 import { Route } from 'react-router-dom';
-import NotLoggedIn from './UI/NotLoggedIn';
-import AuthContext from './../store/authContext';
+import AuthContext from '../store/authContext';
+import NotLoggedIn from '../UI/NotLoggedIn';
 
 function ProtectedRoute({ children, ...rest }) {
-  // console.log('rest ===', rest);
   const authCtx = useContext(AuthContext);
   return <Route {...rest}>{authCtx.isUserLoggedIn ? children : <NotLoggedIn />} </Route>;
 }

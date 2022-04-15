@@ -1,6 +1,6 @@
-import Container from './../components/UI/Container';
+import Container from '../components/Container';
 
-function Skills() {
+function HomePage() {
   return (
     <Container>
       <h1>Skills</h1>
@@ -11,4 +11,4 @@ function Skills() {
   );
 }
 
-export default Skills;
+export default HomePage;
