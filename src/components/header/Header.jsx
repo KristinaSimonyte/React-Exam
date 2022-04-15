@@ -15,11 +15,11 @@ function Header() {
       <img className={css.img}
       src='logo.png' alt='logo' />
       <nav className='main-nav'>
-        {authCtx.isUserLoggedIn && <NavLink to={'/'}>Skills</NavLink>}
-        {authCtx.isUserLoggedIn && <NavLink to={'/skills'}>Add New Skills</NavLink>}
-        {!authCtx.isUserLoggedIn && <NavLink to={'/login'}>Login</NavLink>}
-        {!authCtx.isUserLoggedIn && <NavLink to={'/register'}>Register</NavLink>}
-        {authCtx.isUserLoggedIn && (
+        {authCtx.isLoggedIn && <NavLink to={'/home'}>Skills</NavLink>}
+        {authCtx.isLoggedIn && <NavLink to={'/add'}>Add New Skills</NavLink>}
+        {!authCtx.isLoggedIn && <NavLink to={'/login'}>Login</NavLink>}
+        {!authCtx.isLoggedIn && <NavLink to={'/register'}>Register</NavLink>}
+        {authCtx.isLoggedIn && (
           <NavLink onClick={logoutHandler} to={'/login'}>
             Logout
           </NavLink>

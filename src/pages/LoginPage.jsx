@@ -57,9 +57,10 @@ const initErrors = {
   
     return (
       <Container>
-        <h2>Login</h2>
+        <h2 className={css.title}>Login</h2>
         <form onSubmit={submitHandler} className={css.form}>
           {isError && <h3 className={css.err}>Please check username and password</h3>}
+          <label className={css.label}>Insert email</label>
           <input
             onChange={(e) => setUserEmail(e.target.value)}
             value={userEmail}
@@ -68,6 +69,7 @@ const initErrors = {
             placeholder='Please enter your email'
           />
           {errorObj.userEmail && <p>{errorObj.userEmail}</p>}
+          <label className={css.label}>Insert password</label>
           <input
             onChange={(e) => setPassword(e.target.value)}
             value={password}

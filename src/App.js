@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import './App.css';
@@ -12,18 +12,31 @@ import AddSkillsPage from './pages/AddSkillsPage';
 import PageNotFound from './pages/PageNotFound';
 
 function App() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    isUserLoggedIn();
+  }, []);
 
   function login(userToken) {
     localStorage.setItem('token', userToken);
-    setIsUserLoggedIn(true);
+     setIsLoggedIn(true);
   }
   function logout() {
     localStorage.removeItem('token');
-    setIsUserLoggedIn(false);
+     setIsLoggedIn(false);
+  }
+  function isUserLoggedIn() {
+    if (localStorage.getItem('token')) {
+      setIsLoggedIn(true);
+    return true;
+    } 
+    setIsLoggedIn(false);
+    return false;
   }
 
   const ctxValue = {
+    isLoggedIn,
     isUserLoggedIn,
     login,
     logout,
@@ -57,7 +70,6 @@ function App() {
           </ProtectedRoute>
 
           <Route path={'*'}>
-            <h2>Page not found</h2>
             <PageNotFound />
           </Route>
 
