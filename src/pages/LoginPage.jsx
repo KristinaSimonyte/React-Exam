@@ -45,7 +45,6 @@ const initErrors = {
       };
       const sendResult = await sendFetch('auth/login', newLoginObj);
       if (sendResult.msg === 'Successfully logged in') {
-        alert (sendResult.msg);
         console.log(sendResult);
         authCtx.login(sendResult.token);
         history.push('/home');
