@@ -61,7 +61,6 @@ function App() {
           </Route>
 
           <ProtectedRoute path='/home'>
-            <p>Welcome {process.env.REACT_APP_MY_NAME} </p>
             <HomePage />
           </ProtectedRoute>
 
