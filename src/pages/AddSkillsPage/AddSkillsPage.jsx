@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Container from '../components/Container';
-import { sendFetch, sendFetchWithToken } from '../helpers/helpers';
+import Container from '../../components/Container';
+import { sendFetchWithToken } from '../../helpers/helpers';
 import css from './AddSkillsPage.module.css';
-import Button from '../components/Button/Button';
-import Loading from '../components/Loading/Loading';
+import Button from '../../components/Button/Button';
+import Loading from '../../components/Loading/Loading';
 
 const initErrors = {
   title: '',

@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import './App.css';
-import Header from './components//header/Header';
-import LoginPage from './pages/LoginPage';
-import HomePage from './pages/HomePage';
 import AuthContext from './store/authContext';
 import ProtectedRoute from './components/ProtectedRoute';
-import RegisterPage from './pages/RegisterPage';
-import AddSkillsPage from './pages/AddSkillsPage';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import HomePage from './pages/HomePage/HomePage';
+import AddSkillsPage from './pages/AddSkillsPage/AddSkillsPage';
 import PageNotFound from './pages/PageNotFound';
+import Header from './components/Header/Header';
 
 function App() {
    const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,7 +37,6 @@ function App() {
 
   const ctxValue = {
     isLoggedIn,
-    isUserLoggedIn,
     login,
     logout,
   };

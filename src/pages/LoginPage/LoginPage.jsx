@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from '../components/Button/Button';
-import { sendFetch } from '../helpers/helpers';
-import Container from '../components/Container';
-import css from './Register.module.css';
-import Loading from '../components/Loading/Loading';
+import Button from '../../components/Button/Button';
+import { sendFetch } from '../../helpers/helpers';
+import Container from '../../components/Container';
+import css from './LoginPage.module.css';
+import AuthContext from '../../store/authContext';
+import Loading from '../../components/Loading/Loading';
 
 
 const initErrors = {
@@ -12,14 +13,15 @@ const initErrors = {
     password: '',
   };
   
-  function RegisterPage() {
+  function LoginPage() {
     const history = useHistory();
     const [userEmail, setUserEmail] = useState('ttt@ttt.lt');
     const [password, setPassword] = useState('ttt');
     const [isError, setIsError] = useState(false);
     const [errorObj, setErrorObj] = useState(initErrors);
+    const authCtx = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState (false);
-  
+
     useEffect(() => {
       const isErrorsEmpty = Object.values(errorObj).every((el) => el === '');
       if (!isErrorsEmpty) {
@@ -39,25 +41,27 @@ const initErrors = {
         setErrorObj((prevState) => ({ ...prevState, dob: 'Please insert password' }));
       }
   
-      const newRegisterObj = {
+      const newLoginObj = {
         email: userEmail,
         password: password,
       };
       setIsLoading (true);
-      const sendResult = await sendFetch('auth/register', newRegisterObj);
-      if (sendResult.changes === 1) {
-        history.push('/login');
+      const sendResult = await sendFetch('auth/login', newLoginObj);
+      if (sendResult.msg === 'Successfully logged in') {
+        console.log(sendResult);
+        authCtx.login(sendResult.token);
+        history.push('/home');
       }
       if (sendResult.err) {
         setIsError(true);
       }
-      setIsLoading (false);
+      setIsLoading(false);
     }
   
     return (
       <Container>
         {isLoading && <Loading />}
-        <h2 className={css.title}>Register</h2>
+        <h2 className={css.title}>Login</h2>
         <form onSubmit={submitHandler} className={css.form}>
           {isError && <h3 className={css.err}>Please check username and password</h3>}
           <label className={css.label}>Enter email</label>
@@ -79,11 +83,10 @@ const initErrors = {
           />
           {errorObj.password && <p>{errorObj.password}</p>}
           {errorObj.userEmail && <p>{errorObj.userEmail}</p>}
-          <Button>Register</Button>
+          <Button>Login</Button>
         </form>
       </Container>
     );
   }
   
-  
-  export default RegisterPage;
+  export default LoginPage;

@@ -5,7 +5,7 @@ import NotLoggedIn from '../UI/NotLoggedIn';
 
 function ProtectedRoute({ children, ...rest }) {
   const authCtx = useContext(AuthContext);
-  return <Route {...rest}>{authCtx.isUserLoggedIn ? children : <NotLoggedIn />} </Route>;
+  return <Route {...rest}>{authCtx.isLoggedIn ? children : <NotLoggedIn />} </Route>;
 }
 
 export default ProtectedRoute;
