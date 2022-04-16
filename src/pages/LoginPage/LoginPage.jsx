@@ -6,6 +6,7 @@ import Container from '../../components/Container';
 import css from './LoginPage.module.css';
 import AuthContext from '../../store/authContext';
 import Loading from '../../components/Loading/Loading';
+import SuccessMessage from '../../components/SuccessMessage/SuccessMessage';
 
 
 const initErrors = {
@@ -15,12 +16,13 @@ const initErrors = {
   
   function LoginPage() {
     const history = useHistory();
-    const [userEmail, setUserEmail] = useState('ttt@ttt.lt');
-    const [password, setPassword] = useState('ttt');
+    const [userEmail, setUserEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [isError, setIsError] = useState(false);
     const [errorObj, setErrorObj] = useState(initErrors);
     const authCtx = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState (false);
+    const [isSuccessLogin, setIsSuccessLogin] = useState (false);
 
     useEffect(() => {
       const isErrorsEmpty = Object.values(errorObj).every((el) => el === '');
@@ -48,9 +50,11 @@ const initErrors = {
       setIsLoading (true);
       const sendResult = await sendFetch('auth/login', newLoginObj);
       if (sendResult.msg === 'Successfully logged in') {
-        console.log(sendResult);
         authCtx.login(sendResult.token);
-        history.push('/home');
+        setIsSuccessLogin (true);
+        setTimeout(() => {
+          history.push('/home');
+        }, 1000);
       }
       if (sendResult.err) {
         setIsError(true);
@@ -64,6 +68,7 @@ const initErrors = {
         <h2 className={css.title}>Login</h2>
         <form onSubmit={submitHandler} className={css.form}>
           {isError && <h3 className={css.err}>Please check username and password</h3>}
+          {isSuccessLogin && <SuccessMessage message = {'Login successful'} />}
           <label className={css.label}>Enter email</label>
           <input
             onChange={(e) => setUserEmail(e.target.value)}

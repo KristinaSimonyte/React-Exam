@@ -5,6 +5,7 @@ import { sendFetchWithToken } from '../../helpers/helpers';
 import css from './AddSkillsPage.module.css';
 import Button from '../../components/Button/Button';
 import Loading from '../../components/Loading/Loading';
+import SuccessMessage from '../../components/SuccessMessage/SuccessMessage';
 
 const initErrors = {
   title: '',
@@ -18,6 +19,7 @@ function AddSkillsPage() {
   const [isError, setIsError] = useState(false);
   const [errorObj, setErrorObj] = useState(initErrors);
   const [isLoading, setIsLoading] = useState (false);
+  const [isAddedSuccess, setIsAddedSuccess] = useState (false);
 
   useEffect(() => {
     const isErrorsEmpty = Object.values(errorObj).every((el) => el === '');
@@ -52,7 +54,10 @@ function AddSkillsPage() {
     const sendResult = await sendFetchWithToken('content/skills', newSkillObj);
     console.log(sendResult);
     if (sendResult.msg === 'Added new skill to account') {
-      history.push('/home');
+      setIsAddedSuccess (true);
+      setTimeout(() => {
+        history.push('/home');
+      }, 1000);
     }
     if (sendResult.err) {
       setIsError(true);
@@ -66,7 +71,7 @@ function AddSkillsPage() {
       <h2 className={css.title}>Add new skills</h2>
       <form onSubmit={submitHandler} className={css.form}>
         {isError && <h3 className={css.err}>Please check the form</h3>}
-        <label className={css.label}>Skill title</label>
+        {isAddedSuccess && <SuccessMessage message = {'Skill added'} />}        <label className={css.label}>Skill title</label>
         <input
           onChange={(e) => setTitle(e.target.value)}
           value={title}
