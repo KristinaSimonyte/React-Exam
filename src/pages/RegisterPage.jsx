@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom';
 import Button from '../components/Button/Button';
 import { sendFetch } from '../helpers/helpers';
 import Container from '../components/Container';
-import css from './Register.module.css'
+import css from './Register.module.css';
+import Loading from '../components/Loading/Loading';
 
 
 const initErrors = {
@@ -17,6 +18,7 @@ const initErrors = {
     const [password, setPassword] = useState('ttt');
     const [isError, setIsError] = useState(false);
     const [errorObj, setErrorObj] = useState(initErrors);
+    const [isLoading, setIsLoading] = useState (false);
   
     useEffect(() => {
       const isErrorsEmpty = Object.values(errorObj).every((el) => el === '');
@@ -41,6 +43,7 @@ const initErrors = {
         email: userEmail,
         password: password,
       };
+      setIsLoading (true);
       const sendResult = await sendFetch('auth/register', newRegisterObj);
       if (sendResult.changes === 1) {
         history.push('/login');
@@ -48,10 +51,12 @@ const initErrors = {
       if (sendResult.err) {
         setIsError(true);
       }
+      setIsLoading (false);
     }
   
     return (
       <Container>
+        {isLoading && <Loading />}
         <h2 className={css.title}>Register</h2>
         <form onSubmit={submitHandler} className={css.form}>
           {isError && <h3 className={css.err}>Please check username and password</h3>}

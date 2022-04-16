@@ -4,6 +4,7 @@ import Container from '../components/Container';
 import { sendFetch, sendFetchWithToken } from '../helpers/helpers';
 import css from './AddSkillsPage.module.css';
 import Button from '../components/Button/Button';
+import Loading from '../components/Loading/Loading';
 
 const initErrors = {
   title: '',
@@ -16,6 +17,7 @@ function AddSkillsPage() {
   const [description, setDescription] = useState('');
   const [isError, setIsError] = useState(false);
   const [errorObj, setErrorObj] = useState(initErrors);
+  const [isLoading, setIsLoading] = useState (false);
 
   useEffect(() => {
     const isErrorsEmpty = Object.values(errorObj).every((el) => el === '');
@@ -46,6 +48,7 @@ function AddSkillsPage() {
       title: title,
       description: description,
     };
+    setIsLoading (true);
     const sendResult = await sendFetchWithToken('content/skills', newSkillObj);
     console.log(sendResult);
     if (sendResult.msg === 'Added new skill to account') {
@@ -54,10 +57,12 @@ function AddSkillsPage() {
     if (sendResult.err) {
       setIsError(true);
     }
+    setIsLoading (false);
   }
 
   return (
     <Container>
+      {isLoading && <Loading />}
       <h2 className={css.title}>Add new skills</h2>
       <form onSubmit={submitHandler} className={css.form}>
         {isError && <h3 className={css.err}>Please check the form</h3>}

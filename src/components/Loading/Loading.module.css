@@ -1,0 +1,15 @@
+.loading {
+  color: rgb(31, 178, 90);
+  text-align: center;
+}
+
+.img {
+    height: 3rem;
+    align-content: center;
+    padding: 10px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}

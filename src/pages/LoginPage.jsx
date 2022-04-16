@@ -5,6 +5,7 @@ import { sendFetch } from '../helpers/helpers';
 import Container from '../components/Container';
 import css from './LoginPage.module.css';
 import AuthContext from '../store/authContext';
+import Loading from '../components/Loading/Loading';
 
 
 const initErrors = {
@@ -19,6 +20,7 @@ const initErrors = {
     const [isError, setIsError] = useState(false);
     const [errorObj, setErrorObj] = useState(initErrors);
     const authCtx = useContext(AuthContext);
+    const [isLoading, setIsLoading] = useState (false);
 
     useEffect(() => {
       const isErrorsEmpty = Object.values(errorObj).every((el) => el === '');
@@ -43,6 +45,7 @@ const initErrors = {
         email: userEmail,
         password: password,
       };
+      setIsLoading (true);
       const sendResult = await sendFetch('auth/login', newLoginObj);
       if (sendResult.msg === 'Successfully logged in') {
         console.log(sendResult);
@@ -52,10 +55,12 @@ const initErrors = {
       if (sendResult.err) {
         setIsError(true);
       }
+      setIsLoading(false);
     }
   
     return (
       <Container>
+        {isLoading && <Loading />}
         <h2 className={css.title}>Login</h2>
         <form onSubmit={submitHandler} className={css.form}>
           {isError && <h3 className={css.err}>Please check username and password</h3>}
