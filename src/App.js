@@ -9,7 +9,8 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import HomePage from './pages/HomePage/HomePage';
 import AddSkillsPage from './pages/AddSkillsPage/AddSkillsPage';
 import PageNotFound from './pages/PageNotFound';
-import Header from './components/Header/Header';
+import Header from './components/header/Header';
+import ProtectedRouteLoggedIn from './components/ProtectedRouteLoggedIn';
 
 function App() {
    const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -47,17 +48,17 @@ function App() {
         <Header />
         <Switch>
 
-          <Route path={'/register'}>
+          <ProtectedRouteLoggedIn path={'/register'}>
             <RegisterPage />
-          </Route>
+          </ProtectedRouteLoggedIn>
 
-          <Route path={'/'} exact>
+          <ProtectedRouteLoggedIn path={'/'} exact>
             <LoginPage />
-          </Route>
+          </ProtectedRouteLoggedIn>
 
-          <Route path={'/login'}>
+          <ProtectedRouteLoggedIn path={'/login'}>
             <LoginPage />
-          </Route>
+          </ProtectedRouteLoggedIn>
 
           <ProtectedRoute path='/home'>
             <HomePage />

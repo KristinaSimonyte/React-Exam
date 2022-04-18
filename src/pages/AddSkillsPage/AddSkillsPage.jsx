@@ -52,7 +52,6 @@ function AddSkillsPage() {
     };
     setIsLoading (true);
     const sendResult = await sendFetchWithToken('content/skills', newSkillObj);
-    console.log(sendResult);
     if (sendResult.msg === 'Added new skill to account') {
       setIsAddedSuccess (true);
       setTimeout(() => {

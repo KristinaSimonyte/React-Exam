@@ -50,9 +50,10 @@ const initErrors = {
       setIsLoading (true);
       const sendResult = await sendFetch('auth/login', newLoginObj);
       if (sendResult.msg === 'Successfully logged in') {
-        authCtx.login(sendResult.token);
+       
         setIsSuccessLogin (true);
         setTimeout(() => {
+          authCtx.login(sendResult.token);
           history.push('/home');
         }, 1000);
       }
