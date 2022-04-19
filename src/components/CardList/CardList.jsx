@@ -6,7 +6,7 @@ function CardList(props) {
     <Grid>
       {props.items?.map((skill) => (
         <Card
-        key={skill.id}
+          key={skill.id}
           title={skill.title}
           description={skill.description}
         />

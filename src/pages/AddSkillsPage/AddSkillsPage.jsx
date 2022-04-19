@@ -18,8 +18,8 @@ function AddSkillsPage() {
   const [description, setDescription] = useState('');
   const [isError, setIsError] = useState(false);
   const [errorObj, setErrorObj] = useState(initErrors);
-  const [isLoading, setIsLoading] = useState (false);
-  const [isAddedSuccess, setIsAddedSuccess] = useState (false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAddedSuccess, setIsAddedSuccess] = useState(false);
 
   useEffect(() => {
     const isErrorsEmpty = Object.values(errorObj).every((el) => el === '');
@@ -50,10 +50,10 @@ function AddSkillsPage() {
       title: title,
       description: description,
     };
-    setIsLoading (true);
+    setIsLoading(true);
     const sendResult = await sendFetchWithToken('content/skills', newSkillObj);
     if (sendResult.msg === 'Added new skill to account') {
-      setIsAddedSuccess (true);
+      setIsAddedSuccess(true);
       setTimeout(() => {
         history.push('/home');
       }, 1000);
@@ -61,7 +61,7 @@ function AddSkillsPage() {
     if (sendResult.err) {
       setIsError(true);
     }
-    setIsLoading (false);
+    setIsLoading(false);
   }
 
   return (
@@ -70,7 +70,8 @@ function AddSkillsPage() {
       <h2 className={css.title}>Add new skills</h2>
       <form onSubmit={submitHandler} className={css.form}>
         {isError && <h3 className={css.err}>Please check the form</h3>}
-        {isAddedSuccess && <SuccessMessage message = {'Skill added'} />}        <label className={css.label}>Skill title</label>
+        {isAddedSuccess && <SuccessMessage message={'Skill added'} />}{' '}
+        <label className={css.label}>Skill title</label>
         <input
           onChange={(e) => setTitle(e.target.value)}
           value={title}

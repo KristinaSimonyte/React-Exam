@@ -13,7 +13,7 @@ import Header from './components/header/Header';
 import ProtectedRouteLoggedIn from './components/ProtectedRouteLoggedIn';
 
 function App() {
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     isUserLoggedIn();
@@ -21,17 +21,17 @@ function App() {
 
   function login(userToken) {
     localStorage.setItem('token', userToken);
-     setIsLoggedIn(true);
+    setIsLoggedIn(true);
   }
   function logout() {
     localStorage.removeItem('token');
-     setIsLoggedIn(false);
+    setIsLoggedIn(false);
   }
   function isUserLoggedIn() {
     if (localStorage.getItem('token')) {
       setIsLoggedIn(true);
-    return true;
-    } 
+      return true;
+    }
     setIsLoggedIn(false);
     return false;
   }
@@ -41,13 +41,12 @@ function App() {
     login,
     logout,
   };
-  
+
   return (
     <AuthContext.Provider value={ctxValue}>
       <div className='App'>
         <Header />
         <Switch>
-
           <ProtectedRouteLoggedIn path={'/register'}>
             <RegisterPage />
           </ProtectedRouteLoggedIn>
@@ -71,10 +70,9 @@ function App() {
           <Route path={'*'}>
             <PageNotFound />
           </Route>
-
         </Switch>
       </div>
-</AuthContext.Provider>
+    </AuthContext.Provider>
   );
 }
 

@@ -2,8 +2,8 @@ POST https://autumn-delicate-wilderness.glitch.me/v1/auth/register
 Content-Type: application/json
 
 {
-    "email": "ttt@ttt.lt",
-    "password": "ttt"
+    "email": "jane@dou.com",
+    "password": "dou"
 }
 
 ###
@@ -12,21 +12,19 @@ POST https://autumn-delicate-wilderness.glitch.me/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "ttt@ttt.lt",
-    "password": "ttt"
+    "email": "jane@dou.com",
+    "password": "dou"
 
 }
 
 ###
 GET https://autumn-delicate-wilderness.glitch.me/v1/content/skills
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjI4LCJlbWFpbCI6InR0dEB0dHQubHQiLCJpYXQiOjE2NTAwNTM0OTh9.KVDe6RJoAqH66GI8PDb5Mtgv3Pirra1QWxdfG6smhZk
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzUxLCJlbWFpbCI6ImphbmVAZG91LmNvbSIsImlhdCI6MTY1MDM1MDQzNn0.RJtZIzbnCLOLpNRYMvqIDEB71VAI2g7wzJIKRl18NGQ
 ###
 
 POST https://autumn-delicate-wilderness.glitch.me/v1/content/skills
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjI4LCJlbWFpbCI6InR0dEB0dHQubHQiLCJpYXQiOjE2NTAwNTM0OTh9.KVDe6RJoAqH66GI8PDb5Mtgv3Pirra1QWxdfG6smhZk
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzUxLCJlbWFpbCI6ImphbmVAZG91LmNvbSIsImlhdCI6MTY1MDM1MDQzNn0.RJtZIzbnCLOLpNRYMvqIDEB71VAI2g7wzJIKRl18NGQ
 {
     "title": "html",
     "description": "allways good"
