@@ -1,19 +1,18 @@
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../../store/authContext';
-import css from './Header.module.css'
+import css from './Header.module.css';
 
 function Header() {
   const authCtx = useContext(AuthContext);
-  
+
   function logoutHandler(e) {
     authCtx.logout();
   }
 
   return (
     <header className={css.header}>
-      <img className={css.img}
-      src='logo.png' alt='logo' />
+      <img className={css.img} src='logo.png' alt='logo' />
       <nav className='main-nav'>
         {authCtx.isLoggedIn && <NavLink to={'/home'}>Skills</NavLink>}
         {authCtx.isLoggedIn && <NavLink to={'/add'}>Add New Skills</NavLink>}
